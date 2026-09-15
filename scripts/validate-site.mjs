@@ -1,0 +1,12 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+const source = await readFile(new URL("../dist/server/index.js", import.meta.url), "utf8");
+assert.match(source, /export default\s*\{/);
+assert.match(source, /async fetch\s*\(/);
+assert.match(source, /turk-bayragi\.png/);
+assert.match(source, /FLAG_BYTES/);
+assert.match(source, /ORTAKOY_BYTES/);
+assert.match(source, /DOLMABAHCE_BYTES/);
+assert.match(source, /KARTAL_BYTES/);
+JSON.parse(await readFile(new URL("../dist/.openai/hosting.json", import.meta.url), "utf8"));
+console.log("Artifact validation passed.");
